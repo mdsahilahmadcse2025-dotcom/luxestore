@@ -13,35 +13,86 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#000;
     color:white;
     overflow-x:hidden;
 }
 
+/* Animated Background */
+.blob{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
+
+.blob1{
+    width:350px;
+    height:350px;
+    background:#0071e3;
+    top:-100px;
+    left:-100px;
+    animation:float 10s infinite ease-in-out;
+}
+
+.blob2{
+    width:300px;
+    height:300px;
+    background:#8a2be2;
+    bottom:-100px;
+    right:-100px;
+    animation:float 12s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(60px,-60px);}
+}
+
+/* Navbar */
 nav{
     position:fixed;
-    width:100%;
-    top:0;
-    backdrop-filter:blur(20px);
-    background:rgba(0,0,0,.7);
-    padding:20px 8%;
+    top:15px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:1200px;
+    padding:18px 35px;
     display:flex;
     justify-content:space-between;
-    z-index:100;
+    align-items:center;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+
+    z-index:1000;
 }
 
 .logo{
-    font-size:28px;
+    font-size:26px;
     font-weight:700;
 }
 
 nav ul{
     display:flex;
     list-style:none;
-    gap:30px;
+    gap:25px;
 }
 
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+/* Hero */
 .hero{
     height:100vh;
     display:flex;
@@ -53,25 +104,39 @@ nav ul{
 }
 
 .hero h1{
-    font-size:5rem;
-    background:linear-gradient(90deg,#fff,#888);
+    font-size:7rem;
+    font-weight:800;
+    line-height:1;
+
+    background:linear-gradient(
+    90deg,#fff,#bbb,#fff);
+
+    background-size:300% 300%;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+
+    animation:shine 6s linear infinite;
+}
+
+@keyframes shine{
+    from{background-position:0%;}
+    to{background-position:100%;}
 }
 
 .hero p{
     margin-top:20px;
-    font-size:1.3rem;
     color:#aaa;
+    font-size:1.2rem;
+    max-width:600px;
 }
 
 .btn{
-    margin-top:30px;
+    margin-top:35px;
     padding:15px 35px;
-    border-radius:40px;
+    border-radius:50px;
+    text-decoration:none;
     background:white;
     color:black;
-    text-decoration:none;
     font-weight:600;
     transition:.3s;
 }
@@ -80,27 +145,36 @@ nav ul{
     transform:scale(1.08);
 }
 
+/* Products */
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:30px;
     padding:80px 8%;
 }
 
 .card{
-    background:#111;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
     border-radius:30px;
     overflow:hidden;
-    transition:.4s;
+
+    transition:.5s;
 }
 
 .card:hover{
-    transform:translateY(-12px);
+    transform:translateY(-15px) scale(1.03);
+
+    box-shadow:
+    0 20px 60px rgba(255,255,255,.08);
 }
 
 .card img{
     width:100%;
-    height:250px;
+    height:260px;
     object-fit:cover;
 }
 
@@ -113,86 +187,156 @@ nav ul{
 }
 
 .price{
-    color:#ccc;
+    color:#d8d8d8;
     margin:15px 0;
+    font-size:1.1rem;
 }
 
 .buy{
     display:inline-block;
     padding:12px 25px;
-    border-radius:25px;
+    border-radius:30px;
     background:white;
     color:black;
     text-decoration:none;
+    font-weight:600;
 }
 
+/* Reveal Animation */
+.reveal{
+    opacity:0;
+    transform:translateY(80px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Footer */
 footer{
+    padding:80px 20px;
     text-align:center;
-    padding:50px;
-    color:#777;
+    color:#999;
+    border-top:1px solid rgba(255,255,255,.08);
 }
 
 @media(max-width:768px){
+
 .hero h1{
-    font-size:3rem;
+    font-size:3.8rem;
 }
+
+nav ul{
+    display:none;
+}
+
 }
 </style>
 </head>
-
 <body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
 
 <nav>
     <div class="logo">LuxeStore</div>
 
     <ul>
-        <li>Home</li>
-        <li>Products</li>
-        <li>About</li>
-        <li>Contact</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#">About</a></li>
     </ul>
 </nav>
 
 <section class="hero">
+
     <h1>Think Different.</h1>
-    <p>Premium technology crafted for the future.</p>
-    <a href="#products" class="btn">Explore</a>
+
+    <p>
+        Premium technology and luxury design
+        crafted for the future.
+    </p>
+
+    <a href="#products" class="btn">
+        Explore Products
+    </a>
+
 </section>
 
 <section class="products" id="products">
 
-<div class="card">
-    <img src="https://picsum.photos/600/400?1">
-    <div class="content">
-        <h2>SmartPhone Pro</h2>
-        <p class="price">₹79,999</p>
-        <a href="#" class="buy">Buy Now</a>
+    <div class="card reveal">
+        <img src="https://picsum.photos/600/400?1">
+        <div class="content">
+            <h2>Vision Phone</h2>
+            <p class="price">₹79,999</p>
+            <a href="#" class="buy">Buy Now</a>
+        </div>
     </div>
-</div>
 
-<div class="card">
-    <img src="https://picsum.photos/600/400?2">
-    <div class="content">
-        <h2>Ultra Laptop</h2>
-        <p class="price">₹1,19,999</p>
-        <a href="#" class="buy">Buy Now</a>
+    <div class="card reveal">
+        <img src="https://picsum.photos/600/400?2">
+        <div class="content">
+            <h2>Ultra Laptop</h2>
+            <p class="price">₹1,19,999</p>
+            <a href="#" class="buy">Buy Now</a>
+        </div>
     </div>
-</div>
 
-<div class="card">
-    <img src="https://picsum.photos/600/400?3">
-    <div class="content">
-        <h2>Wireless Pods</h2>
-        <p class="price">₹14,999</p>
-        <a href="#" class="buy">Buy Now</a>
+    <div class="card reveal">
+        <img src="https://picsum.photos/600/400?3">
+        <div class="content">
+            <h2>Air Buds Pro</h2>
+            <p class="price">₹14,999</p>
+            <a href="#" class="buy">Buy Now</a>
+        </div>
     </div>
-</div>
 
 </section>
 
 <footer>
-    © 2026 LuxeStore. All Rights Reserved.
+    © 2026 LuxeStore • Premium Experience
 </footer>
+
+<script>
+
+/* Scroll Reveal */
+const reveals =
+document.querySelectorAll('.reveal');
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.classList.add('active');
+}
+
+});
+
+},{threshold:0.15});
+
+reveals.forEach(item=>{
+observer.observe(item);
+});
+
+/* Hero Parallax */
+
+window.addEventListener('scroll',()=>{
+
+const scroll =
+window.pageYOffset;
+
+document.querySelector('.hero')
+.style.transform =
+`translateY(${scroll*0.25}px)`;
+
+});
+
+</script>
 
 </body>
 </html>
